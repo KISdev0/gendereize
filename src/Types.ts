@@ -1,6 +1,4 @@
-interface GenderData {
+export interface GenderData {
   name: string;
   gender: string;
 }
-
-export default GenderData;

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import GenderData from "./Types";
+import { GenderData } from "./Types";
 
 export function useGenderize() {
   const [name, setName] = useState<string>("");
@@ -8,15 +8,13 @@ export function useGenderize() {
   const [loading, setLoading] = useState<boolean>(false);
 
   const fetchRequest = async (nameToRequest: string) => {
+    if (!nameToRequest.trim()) {
+      setError("Ошибка: пустое имя");
+      return setName("");
+    }
     setError(null);
     setLoading(true);
 
-    if (!nameToRequest.trim()) {
-      setError("Ошибка: пустое имя");
-      setLoading(false);
-      setGenderData(null);
-      return setName("");
-    }
     try {
       const response = await fetch(
         `https://api.genderize.io?name=${nameToRequest}`
